@@ -25,8 +25,11 @@ class TestBoxMonth < MiniTest::Unit::TestCase
     assert_equal 0, @data[:boxes][3][:players][1][:lost]
   end
 
-  def test_match_parsing
-    assert_equal 'Blake Cutler', @data[:boxes][5][:players][3][:matches][0][:opponent]
-    assert_equal '0-3(1)', @data[:boxes][5][:players][3][:matches][0][:score]
+  def test_opponent_parsing
+    assert_equal "Mayank Srivastava", @data[:boxes][2][:opponents][1]
+  end
+
+  def test_score_parsing
+    assert_equal '0-3(1)', @data[:boxes][5][:players][3][:scores][0]
   end
 end
