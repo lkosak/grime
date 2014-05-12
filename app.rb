@@ -1,7 +1,11 @@
+$LOAD_PATH << File.dirname(__FILE__)
+
 require 'httparty'
 require 'pry'
 require 'http-cookie'
 require 'nokogiri'
+require 'parsers/box_month'
+require 'erb'
 
 class USSquash
   include HTTParty
@@ -37,7 +41,7 @@ class USSquash
     response = get("http://modules.ussquash.com/ssm/pages/boxleague/" \
                    "BoxLeague.asp?boxID=#{id}&currentbox=0")
     doc = Nokogiri::HTML.parse(response.body)
-    data = Parsers::BoxMonth.(doc)
+    data = Parsers::BoxMonth.new(doc).call
   end
 
   private
@@ -87,6 +91,11 @@ class USSquash
   class AuthFailure < Error; end
 end
 
-client = USSquash.new('lkosak', 'lk0sak')
-box_id = client.current_box_id
-client.box_data(box_id)
+#client = USSquash.new('lkosak', 'lk0sak')
+#box_id = client.current_box_id
+#data = client.box_data(box_id)
+doc = Nokogiri::HTML.parse(open('spec/fixtures/box_month.html'))
+data = Parsers::BoxMonth.new(doc).call
+boxes = data[:boxes]
+template = ERB.new(File.read('views/month.html.erb'))
+puts template.result

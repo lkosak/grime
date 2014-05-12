@@ -1,0 +1,18 @@
+Month!
+
+<% boxes.each do |box| %>
+  Box <%= box[:number] %>
+  <table>
+    <thead>
+      <tr>
+        <td>Player</td>
+        <td>Points</td>
+        <td>Won</td>
+        <td>Lost</td>
+        <% box[:opponents].each do |opponent| %>
+        <td><%= opponent %></td>
+        <% end %>
+      </tr>
+    </thead>
+  </table>
+<% end %>
