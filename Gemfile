@@ -5,7 +5,6 @@ gem 'httparty'
 gem 'http-cookie'
 gem 'nokogiri'
 gem 'minitest'
-gem 'pdfkit'
 gem 'mongoid'
 gem 'sinatra'
 
