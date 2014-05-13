@@ -2,7 +2,6 @@ module Clients
   class USSquash
     include HTTParty
     base_uri 'http://www.ussquash.com'
-    debug_output
     follow_redirects false
 
     def initialize(username, password)
