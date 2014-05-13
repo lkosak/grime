@@ -3,12 +3,12 @@ $LOAD_PATH << File.dirname(__FILE__)
 require 'httparty'
 require 'http-cookie'
 require 'nokogiri'
-require 'clients/us_squash'
-require 'parsers/box_month'
 require 'erb'
-require 'pdfkit'
 require 'mongoid'
 require 'sinatra'
+
+require 'clients/us_squash'
+require 'parsers/box_month'
 
 Mongoid.load!("config/mongoid.yml", ENV['RACK_ENV'])
 
