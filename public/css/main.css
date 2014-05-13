@@ -1,0 +1,39 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  -webkit-print-color-adjust:exact;
+}
+h1 {
+  padding: 0;
+  margin: 0;
+}
+.asof {
+  padding: 0;
+  margin: 0 0 0.75em 0;
+  line-height: 3em;
+}
+h5 {
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+  line-height: 2em;
+}
+table {
+  margin-bottom: 1em;
+}
+thead {
+  font-weight: bold;
+}
+table, td {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+td {
+  padding: 3px;
+}
+tbody tr:nth-child(odd) {
+  background-color: rgb(245, 245, 245);
+}
+.box {
+  page-break-inside: avoid;
+}

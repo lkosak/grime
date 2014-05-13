@@ -11,6 +11,10 @@ class TestBoxMonth < MiniTest::Unit::TestCase
     @data = Parsers::BoxMonth.new(@doc).call
   end
 
+  def test_month_parsing
+    assert_equal 'UBL May 2014', @data[:month]
+  end
+
   def test_box_structure
     assert_equal 16, @data[:boxes].length
     assert_equal 1, @data[:boxes][0][:number]
@@ -31,6 +35,7 @@ class TestBoxMonth < MiniTest::Unit::TestCase
   end
 
   def test_score_parsing
+    assert_equal '', @data[:boxes][0][:players][1][:scores][3]
     assert_equal '0-3(1)', @data[:boxes][4][:players][3][:scores][0]
   end
 end

@@ -8,6 +8,8 @@ module Parsers
       current_box = 1
       boxes = []
 
+      month = @doc.xpath('.//font[@size=2][1]/br[1]/preceding-sibling::text()').text.strip
+
       @doc.css('#corebody > table:last > tr > td:last .DataList').each do |table|
         opponents = table.css('tr.Header > td')[5..-1].map { |td| td.content }
 
@@ -21,7 +23,8 @@ module Parsers
 
         table.css('tr.tall').each do |tr|
           scores = tr.xpath('./td')[5..-1].map do |td|
-                     td.xpath('text()').text.gsub('&nbsp;', ' ').strip
+                     td.xpath('text()').text.gsub('&nbsp;', ' ').
+                                             gsub(/[^-*\(\)0-9]/, '')
                    end
 
           box[:players][player_number] = {
@@ -40,7 +43,8 @@ module Parsers
       end
 
       {
-        boxes: boxes
+        month: month,
+        boxes: boxes,
       }
     end
   end

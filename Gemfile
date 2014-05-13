@@ -5,7 +5,9 @@ gem 'httparty'
 gem 'http-cookie'
 gem 'nokogiri'
 gem 'minitest'
-gem 'mustache'
+gem 'pdfkit'
+gem 'mongoid'
+gem 'sinatra'
 
 group :development do
   gem 'pry'
