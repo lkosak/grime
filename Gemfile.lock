@@ -32,7 +32,6 @@ GEM
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     origin (1.1.0)
-    pdfkit (0.6.2)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -60,6 +59,5 @@ DEPENDENCIES
   minitest
   mongoid
   nokogiri
-  pdfkit
   pry
   sinatra
