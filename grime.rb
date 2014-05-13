@@ -22,7 +22,7 @@ end
 class Grime
   class Fetcher
     def self.call
-      client = Clients::USSquash.new('lkosak', 'lk0sak')
+      client = Clients::USSquash.new(ENV['USS_USERNAME'], ENV['USS_PASSWORD'])
       box_id = client.current_box_id
       data = client.box_data(box_id)
       BoxMonth.create({ date: Date.today, data: data })
