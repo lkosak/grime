@@ -7,7 +7,6 @@ require 'erb'
 require 'mongoid'
 require 'sinatra'
 require 'pony'
-require 'pry'
 
 require 'clients/us_squash'
 require 'parsers/box_month'
