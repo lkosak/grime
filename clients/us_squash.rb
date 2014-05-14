@@ -3,6 +3,7 @@ module Clients
     include HTTParty
     base_uri 'http://www.ussquash.com'
     follow_redirects false
+    ssl_ca_file File.expand_path(File.join(File.dirname(__FILE__), '..', 'ca-bundle.crt'))
 
     def initialize(username, password)
       @jar = HTTP::CookieJar.new
