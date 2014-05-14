@@ -7,6 +7,7 @@ require 'erb'
 require 'mongoid'
 require 'sinatra'
 require 'pony'
+require 'pry'
 
 require 'clients/us_squash'
 require 'parsers/box_month'
@@ -29,6 +30,9 @@ class Grime
     RECIPIENTS = %W(lkosak@gmail.com)
 
     def self.new_box_email(box_month)
+      # Hack to deal with symbol vs. string keys in the data hash
+      box_month.reload
+
       url = "#{BASE_URL}/date/#{box_month.date}"
       month = box_month.data['month']
       html_body = ERB.new(File.read('views/new_box_email.erb')).result(binding)
