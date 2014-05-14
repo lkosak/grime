@@ -8,6 +8,7 @@ gem 'nokogiri'
 gem 'minitest'
 gem 'mongoid'
 gem 'sinatra'
+gem 'pony'
 
 group :development do
   gem 'pry'

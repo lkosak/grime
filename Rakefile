@@ -1,5 +1,5 @@
 require './grime'
 
 task :fetch do
-  Grime::Fetcher.call
+  Grime::Fetcher.new.call
 end

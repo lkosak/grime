@@ -6,9 +6,12 @@ require 'nokogiri'
 require 'erb'
 require 'mongoid'
 require 'sinatra'
+require 'pony'
 
 require 'clients/us_squash'
 require 'parsers/box_month'
+
+Dir["config/initializers/**/*.rb"].each { |f| require(f) }
 
 Mongoid.load!("config/mongoid.yml", ENV['RACK_ENV'])
 
@@ -20,12 +23,29 @@ class BoxMonth
 end
 
 class Grime
+  BASE_URL = "http://grime.herokuapp.com"
+
+  class Mailer
+    RECIPIENTS = %W(lkosak@gmail.com)
+
+    def self.new_box_email(box_month)
+      url = "#{BASE_URL}/date/#{box_month.date}"
+      month = box_month.data['month']
+      html_body = ERB.new(File.read('views/new_box_email.erb')).result(binding)
+
+      Pony.mail(to: RECIPIENTS,
+                subject: 'New UBL report available',
+                html_body: html_body)
+    end
+  end
+
   class Fetcher
-    def self.call
+    def call
       client = Clients::USSquash.new(ENV['USS_USERNAME'], ENV['USS_PASSWORD'])
       box_id = client.current_box_id
       data = client.box_data(box_id)
-      BoxMonth.create({ date: Date.today, data: data })
+      box_month = BoxMonth.create!({ date: Date.today, data: data })
+      Grime::Mailer.new_box_email(box_month)
     end
   end
 
