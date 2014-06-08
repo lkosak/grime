@@ -26,7 +26,7 @@ class Grime
   BASE_URL = "http://grime.herokuapp.com"
 
   class Mailer
-    RECIPIENTS = %W(lkosak@gmail.com)
+    RECIPIENTS = %W(lkosak@gmail.com tfsapinski@gmail.com)
 
     def self.new_box_email(box_month)
       # Hack to deal with symbol vs. string keys in the data hash
