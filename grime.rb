@@ -30,7 +30,9 @@ class Grime
       client = Clients::USSquash.new(ENV['USS_USERNAME'], ENV['USS_PASSWORD'])
       box_id = client.current_box_id
       data = client.box_data(box_id)
-      BoxMonth.create!({ date: Date.today, data: data })
+      box_month = BoxMonth.create!({ date: Date.today, data: data })
+      box_month.reload # hack to deal with key vs. string hash
+      box_month
     end
   end
 
