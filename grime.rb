@@ -37,7 +37,7 @@ class Grime
   class Web < Sinatra::Application
     get '/' do
       box_month = BoxMonth.where(date: Date.today).last
-      box_month ||= Grime::Fetcher.call
+      box_month ||= Grime::Fetcher.new.call
       erb :box_month, locals: { date: box_month.date, data: box_month.data }
     end
 
