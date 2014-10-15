@@ -1,0 +1,8 @@
+<h1><%= presenter.month %></h1>
+
+<dl>
+  <% presenter.winners.each do |winner| %>
+    <dt>Box <%= winner['box_number'] %></dt>
+    <dd><%= winner['name'] %></dd>
+  <% end %>
+</dl>

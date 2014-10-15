@@ -14,9 +14,9 @@ module Parsers
         opponents = table.css('tr.Header > td')[5..-1].map { |td| td.content }
 
         box = {
-          number: current_box,
-          opponents: opponents,
-          players: {},
+          'number' => current_box,
+          'opponents' => opponents,
+          'players' => {},
         }
 
         player_number = 1
@@ -27,12 +27,12 @@ module Parsers
                                              gsub(/[^-*\(\)0-9]/, '')
                    end
 
-          box[:players][player_number] = {
-            name: tr.xpath('./td')[1].xpath('./a')[0].content,
-            points: tr.xpath('./td')[2].content.to_i,
-            won: tr.xpath('./td')[3].content.to_i,
-            lost: tr.xpath('./td')[4].content.to_i,
-            scores: scores
+          box['players'][player_number] = {
+            'name'   => tr.xpath('./td')[1].xpath('./a')[0].content,
+            'points' => tr.xpath('./td')[2].content.to_i,
+            'won'    => tr.xpath('./td')[3].content.to_i,
+            'lost'   => tr.xpath('./td')[4].content.to_i,
+            'scores' => scores,
           }
 
           player_number += 1
@@ -43,8 +43,8 @@ module Parsers
       end
 
       {
-        month: month,
-        boxes: boxes,
+        'month' => month,
+        'boxes' => boxes,
       }
     end
   end

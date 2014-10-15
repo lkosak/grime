@@ -22,25 +22,61 @@ class BoxMonth
   field :data, type: Hash
 end
 
+class BoxMonthPresenter
+  def initialize(record)
+    @record = record
+  end
+
+  def date
+    @record.date
+  end
+
+  def month
+    @record.data['month']
+  end
+
+  def boxes
+    @record.data['boxes']
+  end
+
+  def winners
+    @record.data['boxes'].map do |box|
+      {
+        'box_number' => box['number'],
+        'name' => box['players'][1]['name'],
+      }
+    end
+  end
+end
+
 class Grime
   BASE_URL = "http://grime.herokuapp.com"
 
-  class Fetcher
-    def call
-      client = Clients::USSquash.new(ENV['USS_USERNAME'], ENV['USS_PASSWORD'])
-      box_id = client.current_box_id
-      data = client.box_data(box_id)
-      box_month = BoxMonth.create!({ date: Date.today, data: data })
-      box_month.reload # hack to deal with key vs. string hash
-      box_month
-    end
-  end
-
   class Web < Sinatra::Application
     get '/' do
+      erb :home
+    end
+
+    get '/current' do
       box_month = BoxMonth.where(date: Date.today).last
-      box_month ||= Grime::Fetcher.new.call
-      erb :box_month, locals: { date: box_month.date, data: box_month.data }
+
+      unless box_month
+        box_id = client.current_box_id
+        data = client.box_data(box_id)
+        box_month = BoxMonth.create!({ date: Date.today, data: data })
+      end
+
+      presenter = BoxMonthPresenter.new(box_month)
+      erb :box_month, locals: { presenter: presenter }
+    end
+
+    get '/winners' do
+      box_id = client.previous_box_id
+      data = client.box_data(box_id)
+      box_month = BoxMonth.new({ date: Date.today, data: data })
+
+      presenter = BoxMonthPresenter.new(box_month)
+      erb :winners, locals: { presenter: presenter}
     end
 
     get '/date/:date' do |d|
@@ -53,6 +89,13 @@ class Grime
       else
         erb :box_month, locals: { date: box_month.date, data: box_month.data }
       end
+    end
+
+    private
+
+    def client
+      @client ||= Clients::USSquash.new(ENV['USS_USERNAME'],
+                                        ENV['USS_PASSWORD'])
     end
   end
 end

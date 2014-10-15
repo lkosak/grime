@@ -22,11 +22,15 @@ module Clients
         box_ids << a['href'][/boxid=([0-9]+)/, 1]
       end
 
-      box_ids
+      box_ids.sort
     end
 
     def current_box_id
-      box_ids.max
+      box_ids.last
+    end
+
+    def previous_box_id
+      box_ids[-2]
     end
 
     def box_data(id)
