@@ -27,7 +27,7 @@ module Parsers
                                              gsub(/[^-*\(\)0-9]/, '')
                    end
 
-          box['players'][player_number] = {
+          box['players'][player_number.to_s] = {
             'name'   => tr.xpath('./td')[1].xpath('./a')[0].content,
             'points' => tr.xpath('./td')[2].content.to_i,
             'won'    => tr.xpath('./td')[3].content.to_i,

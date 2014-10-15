@@ -43,7 +43,7 @@ class BoxMonthPresenter
     @record.data['boxes'].map do |box|
       {
         'box_number' => box['number'],
-        'name' => box['players'][1]['name'],
+        'name' => box['players']['1']['name'],
       }
     end
   end
