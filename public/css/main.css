@@ -10,7 +10,6 @@ h1 {
 .asof {
   padding: 0;
   margin: 0 0 0.75em 0;
-  line-height: 3em;
 }
 h5 {
   font-size: 1em;
@@ -33,6 +32,10 @@ td {
 }
 tbody tr:nth-child(odd) {
   background-color: rgb(245, 245, 245);
+}
+.sidenote {
+  margin: 1.5em 0 1.5em;
+  font-style: italic;
 }
 .box {
   page-break-inside: avoid;

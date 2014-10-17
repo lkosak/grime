@@ -1,6 +1,10 @@
 <h1><%= presenter.month %></h1>
 <div class="asof">(As of <%= presenter.date.strftime("%-m/%-d/%Y") %>)</div>
 
+<p class="sidenote">
+  To join the box league or find out more information, please email us at ucsfbox@gmail.com.
+</p>
+
 <% presenter.boxes.each do |box| %>
   <div class="box">
     <h5>Box <%= box['number'] %></h5>
