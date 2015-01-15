@@ -13,8 +13,8 @@ module Clients
 
     def box_ids
       url = "http://modules.ussquash.com/ssm/pages/" \
-             "player_profile.asp?wmode=transparent&program=player" \
-             "&id=#{@player_id}")
+            "player_profile.asp?wmode=transparent&program=player" \
+            "&id=#{@player_id}"
 
       # for some reason, the first time we request this it returns
       # a 301 redirect, but the second time, it works.
