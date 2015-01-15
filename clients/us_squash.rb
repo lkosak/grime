@@ -12,9 +12,15 @@ module Clients
     end
 
     def box_ids
-      response = get("http://modules.ussquash.com/ssm/pages/" \
-                     "player_profile.asp?wmode=transparent&program=player" \
-                     "&id=#{@player_id}")
+      url = "http://modules.ussquash.com/ssm/pages/" \
+             "player_profile.asp?wmode=transparent&program=player" \
+             "&id=#{@player_id}")
+
+      # for some reason, the first time we request this it returns
+      # a 301 redirect, but the second time, it works.
+      get(url)
+
+      response = get(url)
       doc = Nokogiri::HTML.parse(response.body)
 
       box_ids = []
