@@ -5,14 +5,16 @@ module Clients
     follow_redirects false
     ssl_ca_file File.expand_path(File.join(File.dirname(__FILE__), '..', 'ca-bundle.crt'))
 
-    def initialize(username, password)
+    def initialize(username, password, player_id)
       @jar = HTTP::CookieJar.new
+      @player_id = player_id
       perform_login(username, password)
     end
 
     def box_ids
       response = get("http://modules.ussquash.com/ssm/pages/" \
-                     "player_profile.asp?wmode=transparent&program=player&id=79799")
+                     "player_profile.asp?wmode=transparent&program=player" \
+                     "&id=#{@player_id}")
       doc = Nokogiri::HTML.parse(response.body)
 
       box_ids = []

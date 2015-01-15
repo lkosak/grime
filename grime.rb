@@ -95,7 +95,8 @@ class Grime
 
     def client
       @client ||= Clients::USSquash.new(ENV['USS_USERNAME'],
-                                        ENV['USS_PASSWORD'])
+                                        ENV['USS_PASSWORD'],
+                                        ENV['USS_PLAYER_ID'])
     end
   end
 end
